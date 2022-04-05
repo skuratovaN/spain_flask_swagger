@@ -1,9 +1,5 @@
 import json
-import os
 from bs4 import BeautifulSoup
-
-from flask import Flask, redirect, request, url_for, jsonify
-import connexion
 import requests
 
 url = 'https://blsspain-belarus.com/contact.php'
@@ -61,10 +57,11 @@ def read_visa_center():
         text = json.load(file)
     return text
 
-def create_center():
+def create_file():
     html = get_info_site(url)
     all_centres = collect_info_data(html)
     visa_center_to_file(all_centres)
-    return all_centres, 201
+    return all_centres
+
 
 
