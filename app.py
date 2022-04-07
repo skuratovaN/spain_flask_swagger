@@ -6,14 +6,20 @@ import serv
 
 # app = Flask(__name__)
 
-app = connexion.App(__name__, specification_dir="./")
 
-app.app.config['JSON_AS_ASCII'] = False
 
-app.add_api("swagger.yaml")
+def create_app():
+    app = connexion.App(__name__, specification_dir="./")
 
-url = 'https://blsspain-belarus.com/contact.php'
+    app.app.config['JSON_AS_ASCII'] = False
 
+    app.add_api("swagger.yaml")
+
+    url = 'https://blsspain-belarus.com/contact.php'
+
+    return app
+
+app = create_app()
 
 @app.route("/")
 def index():
