@@ -55,3 +55,43 @@ paths:
                   type: string
                 почта:
                   type: string
+  
+  /news:
+    get: 
+      operationId: 
+        - serv.create_correct_data
+        - serv.get_info_site
+      tags:
+        - News of visa center
+      summary: Get the news of visa centers
+      description: Read the list about news of visa centers
+      responses:
+        200:
+          description: Successfully read news of visa centers list operation
+          schema:
+            type: array
+            items:
+              properties:
+                description:
+                  type: string
+                image:
+                  type: string
+                sourceName:
+                  type: string
+                time:
+                  type: string
+                title:
+                  type: string
+                url:
+                  type: string
+
+  /news_in_file:
+    get:
+      operationId: serv.save_in_file
+      tags:
+        - News of visa centers
+      summary: Get information about news of visa centers
+      description: Scrapping information about news of visa centers from website
+      responses:
+        200:
+          description: Successfully scrap information operation

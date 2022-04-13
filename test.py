@@ -11,7 +11,6 @@ class TestPages(unittest.TestCase):
 	def test_app(self):
 		assert self.app is not None
 
-
 	def test1(self):
 		r = requests.get('http://127.0.0.1:5000/')
 		assert r.status_code == 200
@@ -23,8 +22,12 @@ class TestPages(unittest.TestCase):
 	def test3(self):
 		r = requests.get('http://127.0.0.1:5000/visa-center')
 		assert r.status_code == 200
-
-
+	
+	def check_scrap_news_of_visa_center(self):
+		assert requests.get('http://127.0.0.1:5000/news').status_code == 200
+	
+	def check_scrap_news_of_visa_center_with_create_file(self):
+		assert requests.get('http://127.0.0.1:5000/news_in_file').status_code == 200
 
 
 if __name__ == '__main__':
