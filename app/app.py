@@ -27,10 +27,16 @@ def index():
     )
 
 
-@app.route("/visa-center", methods=['POST', 'GET'])
+@app.route("/to-file")
+def to_file():
+    all_centres = serv.create_file()
+    return (
+        "<p>{}</p>"
+        "<p>wrote to file</p>".format(all_centres)
+    )
+
+@app.route("/visa-center")
 def visa_center():
-    if request.method=='POST':
-        serv.create_center()
     center = serv.read_visa_center()
     return jsonify(center)
 
