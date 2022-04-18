@@ -1,6 +1,7 @@
 import json
 from bs4 import BeautifulSoup
 import requests
+import os
 
 url = 'https://blsspain-belarus.com/contact.php'
 
@@ -62,6 +63,51 @@ def create_file():
     all_centres = collect_info_data(html)
     visa_center_to_file(all_centres)
     return all_centres
+
+
+def get_info_site1(*urls):
+    return [requests.get(url).text for url in urls]
+
+
+def create_correct_data(jsons_data):
+    result_data = []
+
+    for json_data in jsons_data:
+        data = json.loads(json_data)
+        list_of_news = data['data']['stories']
+
+        for news in list_of_news:
+            currect_item = {
+                'image': news['docs'][0]['image'],
+                'sourceName': news['docs'][0]['sourceName'],
+                'title': "".join([item['text'] for item in news['docs'][0]['title']]),
+                'description': "".join([item['text'] for item in news['docs'][0]['text']]),
+                'url': news['docs'][0]['url'],
+                'time': news['docs'][0]['time']
+            }
+
+            result_data.append(currect_item)
+
+    return result_data
+
+
+def save_in_file(result_data: dict):
+    if not os.path.isdir('json_data'):
+        os.mkdir('json_data')
+
+    os.chdir('json_data')
+    last_index = -1
+
+    for _, _, filenames in os.walk("."):
+        for filename in filenames:
+            if "json_data" in filename:
+                if last_index < int(filename.split("json_data")[1].split(".json")[0]):
+                    last_index = int(filename.split("json_data")[1].split(".json")[0])
+
+    with open("json_data" + str(last_index + 1) + ".json", 'w', encoding='utf-8') as f:
+        json.dump(result_data, f, ensure_ascii=False)
+
+    os.chdir('..')
 
 
 

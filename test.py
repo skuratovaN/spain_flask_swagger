@@ -24,6 +24,12 @@ class TestPages(unittest.TestCase):
 		r = requests.get('http://127.0.0.1:5000/visa-center')
 		assert r.status_code == 200
 
+	def test4(self):
+		assert requests.get('http://127.0.0.1:5000/news').status_code == 200
+
+	def test5(self):
+		assert requests.get('http://127.0.0.1:5000/news_in_file').status_code == 200
+
 
 
 
