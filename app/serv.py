@@ -49,17 +49,14 @@ def collect_info_data(html):
 
     return all_centres
 
-
 def visa_center_to_file(all_centres):
     with open("data_spain.json", "w", encoding="utf-8") as file:
         json.dump(all_centres, file, ensure_ascii=False)
-
 
 def read_visa_center():
     with open("data_spain.json", "r", encoding="utf-8") as file:
         text = json.load(file)
     return text
-
 
 def create_file():
     html = get_info_site(url)
@@ -68,7 +65,7 @@ def create_file():
     return all_centres
 
 
-def get_info_site(*urls):
+def get_info_site1(*urls):
     return [requests.get(url).text for url in urls]
 
 
@@ -78,8 +75,7 @@ def create_correct_data(jsons_data):
     for json_data in jsons_data:
         data = json.loads(json_data)
         list_of_news = data['data']['stories']
-        
-    
+
         for news in list_of_news:
             currect_item = {
                 'image': news['docs'][0]['image'],
@@ -112,3 +108,6 @@ def save_in_file(result_data: dict):
         json.dump(result_data, f, ensure_ascii=False)
 
     os.chdir('..')
+
+
+
